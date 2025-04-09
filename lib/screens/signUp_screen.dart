@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:task_management_system/providers/signUp_provider.dart';
+import 'package:task_management_system/providers/userRegistration_provider.dart';
 
 class signUp_screen extends StatelessWidget {
   const signUp_screen({super.key});

@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:task_management_system/providers/signUp_provider.dart';
+import 'package:task_management_system/providers/userRegistration_provider.dart';
+import 'package:task_management_system/screens/createTask_screen.dart';
 import 'package:task_management_system/screens/signUp_screen.dart';
 
 Future<void> main() async {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           ),
 
           debugShowCheckedModeBanner: false,
-          home: signUp_screen(),
+          home: createTask_screen(),
         );
       }),
     );
