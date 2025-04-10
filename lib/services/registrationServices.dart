@@ -8,4 +8,14 @@ class RegistrationServices {
         .doc(model.docId)
         .set(model.toJson(model.docId.toString()));
   }
+
+  Future<RegistrationModel?> getUserName(String docId) async {
+    DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection("registrationCollection")
+        .doc(docId)
+        .get();
+
+    return doc['name'];
+  }
+
 }

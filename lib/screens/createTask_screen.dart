@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:task_management_system/providers/createTask_provider.dart';
+import 'package:task_management_system/providers/userRegistration_provider.dart';
 
 class createTask_screen extends StatefulWidget {
   const createTask_screen({super.key});
@@ -8,30 +11,44 @@ class createTask_screen extends StatefulWidget {
 }
 
 class _createTask_screenState extends State<createTask_screen> {
-  String _selectedItem = 'Option 1'; // Default value
+  String selectedItem = 'Option 1';
 
-  // List of options for the dropdown
-  final List<String> _items = ['Option 1', 'Option 2', 'Option 3'];
+  DateTime? startDate;
+  DateTime? endDate;
+  String startDateText = "";
+  String endDateText = "";
 
-  DateTime _selectedDate = DateTime.now();
-  Future<void> _selectDate(BuildContext context) async {
+  final List<String> items = ["Option1", "Option2", "Option3"];
+
+  Future<void> pickStartDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate,
+      initialDate: startDate ?? DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
-
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-      });
+    if (picked != null) {
+      startDate = picked;
+      startDateText = "${picked.day}/${picked.month}/${picked.year}";
     }
   }
 
+  Future<void> pickEndDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: endDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      endDate = picked;
+      endDateText = "${picked.day}/${picked.month}/${picked.year}";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    // final provider = Provider.of<createTask_provider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -57,17 +74,14 @@ class _createTask_screenState extends State<createTask_screen> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 1.5,
-                  ),
+                  border: Border.all(color: Colors.blue, width: 1.5),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: DropdownButton<String>(
-                  value: _selectedItem,
+                  value: selectedItem,
                   onChanged: (String? newValue) {
                     setState(() {
-                      _selectedItem = newValue!;
+                      selectedItem = newValue!;
                     });
                   },
                   style: TextStyle(
@@ -79,45 +93,53 @@ class _createTask_screenState extends State<createTask_screen> {
                   dropdownColor: Colors.green.shade100,
                   isExpanded: true,
                   itemHeight: 60,
-                  items: _items.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
+                  items:
+                      items.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                 ),
               ),
               SizedBox(height: 20),
               TextField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: "Description"
+                  labelText: "Description",
                 ),
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    backgroundColor: Colors.blue,
-                    minimumSize: Size(double.infinity, 55)
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  backgroundColor: Colors.blue,
+                  minimumSize: Size(double.infinity, 55),
                 ),
-                onPressed: () => _selectDate(context),
-                child: Text('Starting Date', style: TextStyle(fontSize: 20, color: Colors.white)),
+                onPressed: () => pickStartDate(context),
+                child: Text(
+                  "Start Date: $startDateText",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    backgroundColor: Colors.blue,
-                    minimumSize: Size(double.infinity, 55)
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  backgroundColor: Colors.blue,
+                  minimumSize: Size(double.infinity, 55),
                 ),
-                onPressed: () => _selectDate(context),
-                child: Text('End Date', style: TextStyle(fontSize: 20, color: Colors.white)),
+                onPressed: () => pickEndDate(context),
+                child: Text(
+                  "End Date: $endDateText",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
               ),
+              SizedBox(height: 20),
             ],
           ),
         ),

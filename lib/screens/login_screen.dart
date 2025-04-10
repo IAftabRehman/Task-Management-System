@@ -7,8 +7,7 @@ class login_screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Build");
-    final provider = Provider.of<signUp_provider>(context);
+    final provider = Provider.of<userRegistration_provider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(

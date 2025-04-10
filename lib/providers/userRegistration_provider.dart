@@ -4,7 +4,7 @@ import 'package:task_management_system/screens/login_screen.dart';
 import 'package:task_management_system/services/authentication.dart';
 import 'package:task_management_system/services/registrationServices.dart';
 
-class signUp_provider with ChangeNotifier {
+class userRegistration_provider with ChangeNotifier {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
