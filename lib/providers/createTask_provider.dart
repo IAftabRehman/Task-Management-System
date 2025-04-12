@@ -1,10 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:task_management_system/models/createTaskModel.dart';
+import 'package:task_management_system/services/createTaskServices.dart';
+import '../services/registrationServices.dart';
 
 class createTask_provider with ChangeNotifier {
   TextEditingController descriptionController = TextEditingController();
 
-  String selectedItem = 'Option1';
-  final List<String> items = ["Option1", "Option2", "Option3"];
+  bool isLoading = false;
+
+
+
+  String selectedItem = "";
+  List<String> items = [];
+
+  Future<void> fetchUserNames() async {
+    try {
+      List<String> userNames = await RegistrationServices().getAllUserNames();
+      items.clear();
+      items.addAll(userNames);
+      selectedItem = items.isNotEmpty ? items[0] : 'No users found';
+      notifyListeners(); // ✅ Add this back here to auto-refresh the UI
+    } catch (e) {
+      print("Error fetching usernames: $e");
+    }
+  }
+
+
+
 
   DateTime? startDate;
   DateTime? endDate;
@@ -15,16 +37,6 @@ class createTask_provider with ChangeNotifier {
   void updateSelectedItem(String value) {
     selectedItem = value;
     notifyListeners();
-  }
-
-  Future<void> pushTaskDetails(BuildContext context) async {
-    try {
-
-    } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
-    }
   }
 
   // Pick start date
@@ -57,7 +69,34 @@ class createTask_provider with ChangeNotifier {
     }
   }
 
-  // Dispose the controller
+  Future<void> pushTaskDetails(BuildContext context) async {
+    if(descriptionController.text.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Description must not be empty")));
+    }
+
+    try {
+      isLoading = true;
+      notifyListeners();
+
+      await CreateTaskServices().createTask(CreateTaskModel(
+        docId: DateTime.now().millisecondsSinceEpoch.toString(),
+        userName: selectedItem.toString(),
+        description: descriptionController.text,
+        startDate: startDateText.toString(),
+        endDate: endDateText
+      )).then((val) async {
+        isLoading = false;
+        notifyListeners();
+      });
+    } catch (e) {
+      isLoading = false;
+      notifyListeners();
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
   void disposeController() {
     descriptionController.dispose();
   }

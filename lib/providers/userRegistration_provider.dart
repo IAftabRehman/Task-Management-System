@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:task_management_system/models/registrationModel.dart';
+import 'package:task_management_system/screens/createTask_screen.dart';
 import 'package:task_management_system/screens/login_screen.dart';
 import 'package:task_management_system/services/authentication.dart';
 import 'package:task_management_system/services/registrationServices.dart';
 
 class userRegistration_provider with ChangeNotifier {
+
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -53,6 +55,11 @@ class userRegistration_provider with ChangeNotifier {
               content: Text("You are Logged In."),
             ),
       );
+
+    isLoading = false;
+    notifyListeners();
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => createTask_screen()));
     } catch (e) {
       isLoading = false;
       notifyListeners();
@@ -74,7 +81,7 @@ class userRegistration_provider with ChangeNotifier {
       ).showSnackBar(SnackBar(content: Text("All fields must be filled!")));
       return;
     }
-    if (passwordController.text.length <= 6) {
+    if (passwordController.text.length <= 5) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Password would be 6 or more characters")),
       );
@@ -109,7 +116,11 @@ class userRegistration_provider with ChangeNotifier {
               title: Text("Message"),
               content: Text("An email with verification link has been sent."),
             ),
-      );
+      ).then((val){
+        isLoading = false;
+        notifyListeners();
+        Navigator.push(context, MaterialPageRoute(builder: (context) => createTask_screen()));
+      });
     } catch (e) {
       isLoading = false;
       notifyListeners();

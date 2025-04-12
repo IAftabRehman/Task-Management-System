@@ -9,13 +9,20 @@ class RegistrationServices {
         .set(model.toJson(model.docId.toString()));
   }
 
-  Future<RegistrationModel?> getUserName(String docId) async {
-    DocumentSnapshot doc = await FirebaseFirestore.instance
-        .collection("registrationCollection")
-        .doc(docId)
-        .get();
+  Future<List<String>> getAllUserNames() async {
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection("registrationCollection")
+          .get();
 
-    return doc['name'];
+      List<String> userNames = snapshot.docs
+          .map((doc) => doc['name'].toString())
+          .toList();
+
+      return userNames;
+    } catch (e) {
+      print("Error fetching user names: $e");
+      return [];
+    }
   }
-
 }

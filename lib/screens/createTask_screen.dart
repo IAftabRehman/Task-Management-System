@@ -2,12 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_management_system/providers/createTask_provider.dart';
 
-class createTask_screen extends StatelessWidget {
+
+class createTask_screen extends StatefulWidget {
   const createTask_screen({super.key});
 
   @override
+  State<createTask_screen> createState() => _createTask_screenState();
+}
+
+class _createTask_screenState extends State<createTask_screen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () async {
+      final provider = Provider.of<createTask_provider>(context, listen: false);
+      await provider.fetchUserNames();
+      provider.notifyListeners(); // <- Important since fetchUserNames doesn't notify
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<createTask_provider>(context, listen: true);
+    final provider = Provider.of<createTask_provider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -36,32 +52,38 @@ class createTask_screen extends StatelessWidget {
                   border: Border.all(color: Colors.blue, width: 1.5),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: DropdownButton<String>(
-                  value: provider.selectedItem,
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  iconEnabledColor: Colors.blue,
-                  dropdownColor: Colors.green.shade100,
-                  isExpanded: true,
-                  itemHeight: 60,
-                  items: provider.items.map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
+                child: Consumer<createTask_provider>(
+                  builder: (context, provider, child) {
+                    return DropdownButton<String>(
+                      value: provider.selectedItem.isNotEmpty ? provider.selectedItem : null,
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      iconEnabledColor: Colors.blue,
+                      dropdownColor: Colors.green.shade100,
+                      isExpanded: true,
+                      itemHeight: 60,
+                      hint: const Text("Select a user"),
+                      items: provider.items.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (newValue) {
+                        if (newValue != null) {
+                          provider.updateSelectedItem(newValue);
+                        }
+                      },
                     );
-                  }).toList(),
-                  onChanged: (newValue) {
-                    if (newValue != null) {
-                      provider.updateSelectedItem(newValue);
-                    }
                   },
                 ),
               ),
               SizedBox(height: 20),
               TextField(
+                controller: provider.descriptionController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: "Description",
@@ -99,7 +121,10 @@ class createTask_screen extends StatelessWidget {
               ),
               SizedBox(height: 40),
 
-              ElevatedButton(onPressed: (){},
+              provider.isLoading ? Center(child: CircularProgressIndicator()) :
+              ElevatedButton(onPressed: (){
+                provider.pushTaskDetails(context);
+              },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
