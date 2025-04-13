@@ -11,15 +11,13 @@ class createTask_screen extends StatefulWidget {
 }
 
 class _createTask_screenState extends State<createTask_screen> {
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () async {
-      final provider = Provider.of<createTask_provider>(context, listen: false);
-      await provider.fetchUserNames();
-      provider.notifyListeners(); // <- Important since fetchUserNames doesn't notify
-    });
+    Provider.of<createTask_provider>(context, listen: false).fetchUserNames();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +53,7 @@ class _createTask_screenState extends State<createTask_screen> {
                 child: Consumer<createTask_provider>(
                   builder: (context, provider, child) {
                     return DropdownButton<String>(
-                      value: provider.selectedItem.isNotEmpty ? provider.selectedItem : null,
+                      value: provider.selectedName.isNotEmpty ? provider.selectedName : null,
                       style: const TextStyle(
                         color: Colors.blue,
                         fontSize: 18,
@@ -66,7 +64,7 @@ class _createTask_screenState extends State<createTask_screen> {
                       isExpanded: true,
                       itemHeight: 60,
                       hint: const Text("Select a user"),
-                      items: provider.items.map((String value) {
+                      items: provider.name.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),

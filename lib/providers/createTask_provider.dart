@@ -5,20 +5,16 @@ import '../services/registrationServices.dart';
 
 class createTask_provider with ChangeNotifier {
   TextEditingController descriptionController = TextEditingController();
-
   bool isLoading = false;
-
-
-
-  String selectedItem = "";
-  List<String> items = [];
+  String selectedName = "";
+  List<String> name = [];
 
   Future<void> fetchUserNames() async {
     try {
       List<String> userNames = await RegistrationServices().getAllUserNames();
-      items.clear();
-      items.addAll(userNames);
-      selectedItem = items.isNotEmpty ? items[0] : 'No users found';
+      name.clear();
+      name.addAll(userNames);
+      selectedName = name.isNotEmpty ? name[0] : 'No users found';
       notifyListeners(); // ✅ Add this back here to auto-refresh the UI
     } catch (e) {
       print("Error fetching usernames: $e");
@@ -33,9 +29,8 @@ class createTask_provider with ChangeNotifier {
   String startDateText = "";
   String endDateText = "";
 
-  // Update dropdown
   void updateSelectedItem(String value) {
-    selectedItem = value;
+    selectedName = value;
     notifyListeners();
   }
 
@@ -80,7 +75,7 @@ class createTask_provider with ChangeNotifier {
 
       await CreateTaskServices().createTask(CreateTaskModel(
         docId: DateTime.now().millisecondsSinceEpoch.toString(),
-        userName: selectedItem.toString(),
+        userName: selectedName.toString(),
         description: descriptionController.text,
         startDate: startDateText.toString(),
         endDate: endDateText

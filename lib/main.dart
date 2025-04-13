@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:task_management_system/providers/createTask_provider.dart';
 import 'package:task_management_system/providers/userRegistration_provider.dart';
 import 'package:task_management_system/screens/createTask_screen.dart';
-import 'package:task_management_system/screens/signUp_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
           ),
 
           debugShowCheckedModeBanner: false,
-          home: signUp_screen(),
+          home: createTask_screen(),
         );
       }),
     );

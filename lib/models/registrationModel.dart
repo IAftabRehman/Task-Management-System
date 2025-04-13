@@ -1,9 +1,9 @@
 import 'dart:convert';
 RegistrationModel registrationModelFromJson(String str) => RegistrationModel.fromJson(json.decode(str));
-// String registrationModelToJson(RegistrationModel data) => json.encode(data.toJson());
 
 class RegistrationModel {
   final String? name;
+  final String? userRole;
   final String? gender;
   final String? email;
   final String? password;
@@ -13,6 +13,7 @@ class RegistrationModel {
 
   RegistrationModel({
     this.name,
+    this.userRole,
     this.gender,
     this.email,
     this.password,
@@ -23,6 +24,7 @@ class RegistrationModel {
 
   factory RegistrationModel.fromJson(Map<String, dynamic> json) => RegistrationModel(
     name: json["name"],
+    userRole: json["userRole"],
     gender: json["gender"],
     email: json["email"],
     password: json["password"],
@@ -33,6 +35,7 @@ class RegistrationModel {
 
   Map<String, dynamic> toJson(String docId) => {
     "name": name,
+    "userRole": userRole,
     "gender": gender,
     "email": email,
     "password": password,

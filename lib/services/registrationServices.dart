@@ -10,19 +10,27 @@ class RegistrationServices {
   }
 
   Future<List<String>> getAllUserNames() async {
-    try {
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection("registrationCollection")
+          .where("userRole", isEqualTo: "Student/User")
           .get();
-
       List<String> userNames = snapshot.docs
           .map((doc) => doc['name'].toString())
           .toList();
-
       return userNames;
-    } catch (e) {
-      print("Error fetching user names: $e");
-      return [];
+  }
+
+  Future<String?> getUserRoleByEmail(String email) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection("registrationCollection")
+        .where("email", isEqualTo: email)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      var doc = querySnapshot.docs.first;
+      return doc["userRole"];
+    } else {
+      return null;
     }
   }
 }

@@ -1,37 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:task_management_system/providers/userRegistration_provider.dart';
+import '../providers/userRegistration_provider.dart';
 
-class login_screen extends StatelessWidget {
-  const login_screen({super.key});
+class loginRole_screen extends StatelessWidget {
+  const loginRole_screen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<userRegistration_provider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Login",
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        backgroundColor: Colors.blue,
+        title: Text("Role", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         elevation: 10,
-        backgroundColor: Colors.blue,
         shadowColor: Colors.blue,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(15),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Login",
+                "Login as a ....",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
@@ -54,7 +46,7 @@ class login_screen extends StatelessWidget {
               SizedBox(height: 10),
               TextField(
                 controller: provider.passwordController,
-                obscureText: true, // Make the password field secure
+                obscureText: true,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: "Password",
@@ -69,21 +61,37 @@ class login_screen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () => provider.loginAuthentication(context),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+              Text("Select Your Login Role", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => provider.loginAuthenticationUser(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green.shade200,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)
+                      )
+                    ),
+                    child: Text(
+                      "User Login",
+                      style: TextStyle(fontSize: 18, color: Colors.black),
+                    ),
                   ),
-                  backgroundColor: Colors.blue,
-                  elevation: 10,
-                  shadowColor: Colors.blue,
-                ),
-                child: Text(
-                  "Login",
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
+                  ElevatedButton(
+                    onPressed: () => provider.loginAuthenticationAdmin(context),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green.shade200,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)
+                        )
+                    ),
+                    child: Text(
+                      "Admin Login",
+                      style: TextStyle(fontSize: 18, color: Colors.black),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

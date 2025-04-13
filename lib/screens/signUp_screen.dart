@@ -7,7 +7,6 @@ class signUp_screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Build");
     final provider = Provider.of<userRegistration_provider>(context);
     return Scaffold(
       appBar: AppBar(
@@ -42,6 +41,24 @@ class signUp_screen extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
             ),
+            const SizedBox(height: 10),
+            DropdownButtonFormField<String>(
+              decoration: InputDecoration(
+                labelText: "Select Role",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              value: provider.selectedRole,
+              items: provider.role.map((role) {
+                return DropdownMenuItem<String>(
+                  value: role,
+                  child: Text(role),
+                );
+              }).toList(),
+              onChanged: provider.setRole,
+            ),
+            const SizedBox(height: 10),
             const SizedBox(height: 10),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
@@ -98,7 +115,7 @@ class signUp_screen extends StatelessWidget {
                   child: const Text("SignUp", style: TextStyle(color: Colors.white)),
                 ),
                 ElevatedButton(
-                  onPressed: () => provider.goToLoginScreen(context),
+                  onPressed: () => provider.loginScreen(context),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   child: const Text("Login", style: TextStyle(color: Colors.white)),
                 ),
