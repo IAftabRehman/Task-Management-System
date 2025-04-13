@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_management_system/providers/createTask_provider.dart';
 import 'package:task_management_system/providers/userRegistration_provider.dart';
-import 'package:task_management_system/screens/createTask_screen.dart';
+import 'package:task_management_system/providers/user_provider.dart';
+import 'package:task_management_system/screens/userMainDashboard_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => userRegistration_provider()),
-        ChangeNotifierProvider(create: (_) => createTask_provider())
+        ChangeNotifierProvider(create: (_) => createTask_provider()),
+        ChangeNotifierProvider(create: (_) => user_provider())
       ],
       child: Builder(builder: (BuildContext context){
         return MaterialApp(
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
           ),
 
           debugShowCheckedModeBanner: false,
-          home: createTask_screen(),
+          home: userMainDashboard_screen(),
         );
       }),
     );
