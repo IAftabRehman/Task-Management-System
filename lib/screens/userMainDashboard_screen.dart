@@ -11,17 +11,19 @@ class userMainDashboard_screen extends StatefulWidget {
   userMainDashboard_screen({super.key});
 
   @override
-  State<userMainDashboard_screen> createState() => _userMainDashboard_screenState();
+  State<userMainDashboard_screen> createState() =>
+      _userMainDashboard_screenState();
 }
 
 class _userMainDashboard_screenState extends State<userMainDashboard_screen> {
-  int selected = 1;
+  int selected = 0;
+
   List<Widget> contentWidgets = [
     userDashboard(),
     updateTask(),
     applyLeave(),
     leaveStatus(),
-    logOut()
+    logOut(),
   ];
 
   @override
@@ -29,7 +31,14 @@ class _userMainDashboard_screenState extends State<userMainDashboard_screen> {
     final provider = Provider.of<user_provider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dear Sir/Mam", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20)),
+        title: Text(
+          "Dear Sir/Mam",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontSize: 20,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.blue,
         elevation: 10,
@@ -53,37 +62,42 @@ class _userMainDashboard_screenState extends State<userMainDashboard_screen> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
-                        selected = 0;
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                      child: Text("Dashboard", style: TextStyle(fontSize: 15, color: Colors.white)),
+                      onPressed: () => provider.changeIndex(0),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        "Dashboard",
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
                     ),
                   ),
                   SizedBox(width: 5),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          selected = 1;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                      child: Text("Update Task", style: TextStyle(fontSize: 15, color: Colors.white)),
+                      onPressed: () => provider.changeIndex(1),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        "Update Task",
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
                     ),
                   ),
                   SizedBox(width: 5),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          selected = 2;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                      child: Text("Apply Leave", style: TextStyle(fontSize: 15, color: Colors.white)),
+                      onPressed: () => provider.changeIndex(2),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        "Apply Leave",
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
               SizedBox(height: 10),
@@ -91,25 +105,27 @@ class _userMainDashboard_screenState extends State<userMainDashboard_screen> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          selected = 3;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                      child: Text("Leave Status", style: TextStyle(fontSize: 15, color: Colors.white)),
+                      onPressed: () => provider.changeIndex(3),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        "Leave Status",
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
                     ),
                   ),
                   SizedBox(width: 5),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          selected = 4;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                      child: Text("LogOut", style: TextStyle(fontSize: 15, color: Colors.white)),
+                      onPressed: () => provider.changeIndex(4),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        "LogOut",
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
                     ),
                   ),
                 ],
