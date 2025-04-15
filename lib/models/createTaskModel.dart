@@ -4,26 +4,29 @@ CreateTaskModel createTaskModelFromJson(String str) => CreateTaskModel.fromJson(
 
 
 class CreateTaskModel {
-  final String? docId;
+  final String? taskId;
   final String? description;
   final String? userName;
   final String? startDate;
   final String? endDate;
+  final String? status;
 
   CreateTaskModel({
-    this.docId,
+    this.taskId,
     this.description,
     this.userName,
     this.startDate,
     this.endDate,
+    this.status,
   });
 
   factory CreateTaskModel.fromJson(Map<String, dynamic> json) => CreateTaskModel(
-    docId: json["docId"],
+    taskId: json["docId"],
     description: json["description"],
     userName: json["userName"],
     startDate: json["startDate"],
     endDate: json["endDate"],
+    status: json["status"],
   );
 
   Map<String, dynamic> toJson(String docId) => {
@@ -32,5 +35,6 @@ class CreateTaskModel {
     "userName": userName,
     "startDate": startDate,
     "endDate": endDate,
+    "status": status,
   };
 }
