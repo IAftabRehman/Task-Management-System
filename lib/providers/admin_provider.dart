@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class user_provider with ChangeNotifier{
+class admin_provider with ChangeNotifier{
 
   // User Main Dashboard
   int _selectedIndex = 0;
@@ -11,6 +11,6 @@ class user_provider with ChangeNotifier{
   }
 
 
-  // Simple User Dashboard
+// Simple User Dashboard
 
 }
