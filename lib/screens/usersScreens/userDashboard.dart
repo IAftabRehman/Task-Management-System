@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:task_management_system/providers/user_provider.dart';
 
-class userDashboard extends StatefulWidget {
+class userDashboard extends StatelessWidget {
   const userDashboard({super.key});
 
-  @override
-  State<userDashboard> createState() => _userDashboardState();
-}
-
-class _userDashboardState extends State<userDashboard> {
   @override
   Widget build(BuildContext context) {
     double mediaHeight = MediaQuery.of(context).size.height;
@@ -45,9 +38,15 @@ class _userDashboardState extends State<userDashboard> {
                   children: [
                     Text("1. Everyone must completed the tasks assigned to them", style: TextStyle(fontSize: 17)),
                     SizedBox(height: 10),
-                    Text("2. Kindly maintain decorum of the office", style: TextStyle(fontSize: 17)),
+                    Text("2. Respect everyone's time, avoid unnecessary delays", style: TextStyle(fontSize: 17)),
                     SizedBox(height: 10),
-                    Text("3. Keep office and your area neat and clean", style: TextStyle(fontSize: 17)),
+                    Text("3. Ask for help if you're stuck on any task", style: TextStyle(fontSize: 17)),
+                    SizedBox(height: 10),
+                    Text("4. Do not copy tasks from others", style: TextStyle(fontSize: 17)),
+                    SizedBox(height: 10),
+                    Text("5. Only mark the task completed when it's fully done", style: TextStyle(fontSize: 17)),
+                    SizedBox(height: 10),
+                    Text("6. Log in daily to check for new tasks or updates", style: TextStyle(fontSize: 17)),
                   ],
                 ),
               ),
