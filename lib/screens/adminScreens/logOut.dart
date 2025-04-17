@@ -5,7 +5,8 @@ class logOut extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double mediaHeight = MediaQuery.of(context).size.height;
+    // final provider = Provider.of<admin_provider>(context);
+    final mediaHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 5),

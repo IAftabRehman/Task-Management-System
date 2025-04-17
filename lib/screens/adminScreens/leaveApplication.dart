@@ -5,12 +5,24 @@ class leaveApplication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final provider = Provider.of<admin_provider>(context);
+    final mediaHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Column(
-        children: [
-          Text("Leave Application")
-        ],
-      ),
+        body: Container(
+          height: mediaHeight * 0.7,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.greenAccent,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.greenAccent,
+                spreadRadius: 3,
+                blurRadius: 12,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),child: Text("Leave Application", style: TextStyle(fontSize: 30)),
+        )
     );
   }
 }

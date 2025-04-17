@@ -80,7 +80,7 @@ class _adminMainDashboard_screenState extends State<adminMainDashboard_screen> {
                         backgroundColor: Colors.blue,
                       ),
                       child: Text(
-                        "Update Task",
+                        "Create Task",
                         style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
                     ),
@@ -93,7 +93,7 @@ class _adminMainDashboard_screenState extends State<adminMainDashboard_screen> {
                         backgroundColor: Colors.blue,
                       ),
                       child: Text(
-                        "Apply Leave",
+                        "Manage Task",
                         style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
                     ),
