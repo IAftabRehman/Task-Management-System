@@ -1,0 +1,38 @@
+✅ cloud_firestore: ^5.6.5
+Purpose:
+This package allows your app to interact with Cloud Firestore, a NoSQL cloud database.
+In Task Management System:
+Store tasks (title, description, deadline, status, etc.)
+Update or delete tasks
+Fetch tasks in real-time (auto-refresh when data changes)
+Filter tasks (e.g., completed, pending)
+
+
+
+✅ firebase_core: ^3.12.1
+Purpose:
+It's the foundation package for using any Firebase services in Flutter.
+In Task Management System:
+Initializes Firebase in your app
+Required for connecting to Firestore, Firebase Auth, etc.
+
+
+
+✅ firebase_auth: ^5.5.1
+Purpose:
+Provides user authentication features using Firebase Authentication.
+In Task Management System:
+User sign up / login / logout
+Support for email & password auth (or even Google, Facebook, etc.)
+Managing sessions (like showing user-specific tasks)
+
+
+
+✅ provider: ^6.1.4
+Purpose:
+Used for state management in Flutter apps.
+In Task Management System:
+Manage the current user's state
+Track the list of tasks and their changes
+Help update UI efficiently when data changes
+Share data across widgets easily (e.g., current user info, list of tasks)
