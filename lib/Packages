@@ -27,7 +27,6 @@ Support for email & password auth (or even Google, Facebook, etc.)
 Managing sessions (like showing user-specific tasks)
 
 
-
 ✅ provider: ^6.1.4
 Purpose:
 Used for state management in Flutter apps.
