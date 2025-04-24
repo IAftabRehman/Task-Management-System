@@ -1,6 +1,6 @@
 import 'dart:convert';
-//
-// CreateTaskModel createTaskModelFromJson(String str) => CreateTaskModel.fromJson(json.decode(str));
+
+CreateTaskModel createTaskModelFromJson(String str) => CreateTaskModel.fromJson(json.decode(str));
 
 
 class CreateTaskModel {
