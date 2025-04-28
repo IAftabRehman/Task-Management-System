@@ -155,15 +155,6 @@ class userRegistration_provider with ChangeNotifier {
         enteredEmail,
       );
 
-      showDialog(
-        context: context,
-        builder:
-            (context) => AlertDialog(
-              title: Text("Message"),
-              content: Text("You are Logged In."),
-            ),
-      );
-
       if (role == "Student/User") {
         Navigator.push(
           context,

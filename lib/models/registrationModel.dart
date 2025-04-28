@@ -3,6 +3,7 @@ RegistrationModel registrationModelFromJson(String str) => RegistrationModel.fro
 
 class RegistrationModel {
   final String? name;
+  final String? misId;
   final String? userRole;
   final String? gender;
   final String? email;
@@ -13,6 +14,7 @@ class RegistrationModel {
 
   RegistrationModel({
     this.name,
+    this.misId,
     this.userRole,
     this.gender,
     this.email,
@@ -24,6 +26,7 @@ class RegistrationModel {
 
   factory RegistrationModel.fromJson(Map<String, dynamic> json) => RegistrationModel(
     name: json["name"],
+    misId: json["misId"],
     userRole: json["userRole"],
     gender: json["gender"],
     email: json["email"],
@@ -35,6 +38,7 @@ class RegistrationModel {
 
   Map<String, dynamic> toJson(String docId) => {
     "name": name,
+    "misId": misId,
     "userRole": userRole,
     "gender": gender,
     "email": email,
