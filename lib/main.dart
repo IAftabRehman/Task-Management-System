@@ -6,6 +6,7 @@ import 'package:task_management_system/providers/userRegistration_provider.dart'
 import 'package:task_management_system/providers/user_provider.dart';
 import 'package:task_management_system/screens/adminMainDashboard_screen.dart';
 import 'package:task_management_system/screens/loginRule_screen.dart';
+import 'package:task_management_system/screens/userMainDashboard_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
           ),
 
           debugShowCheckedModeBanner: false,
-          home: loginRole_screen(),
+          home: userMainDashboard_screen(),
         );
       }),
     );

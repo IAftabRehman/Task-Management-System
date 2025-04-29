@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import '../../services/authentication.dart';
 
-class logOut extends StatelessWidget {
+class logOut extends StatefulWidget {
   const logOut({super.key});
 
+  @override
+  State<logOut> createState() => _logOutState();
+}
+
+class _logOutState extends State<logOut> {
+
+  final auth = AuthenticationServices();
   @override
   Widget build(BuildContext context) {
     double mediaHeight = MediaQuery.of(context).size.height;
@@ -24,7 +32,15 @@ class logOut extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Text("LogOut")
+            Text("LogOut", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black)),
+            SizedBox(height: 100),
+            ElevatedButton(
+              onPressed: () async {
+                await auth.signOutUser();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: Text("LogOut"),
+            )
           ],
         ),
       ),
