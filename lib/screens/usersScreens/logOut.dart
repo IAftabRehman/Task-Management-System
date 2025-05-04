@@ -40,7 +40,7 @@ class _logOutState extends State<logOut> {
                 Navigator.pushReplacementNamed(context, '/login');
               },
               child: Text("LogOut"),
-            )
+            ),
           ],
         ),
       ),

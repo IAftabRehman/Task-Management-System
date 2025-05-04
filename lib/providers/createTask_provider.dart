@@ -15,7 +15,7 @@ class createTask_provider with ChangeNotifier {
       name.clear();
       name.addAll(userNames);
       selectedName = name.isNotEmpty ? name[0] : 'No users found';
-      notifyListeners(); // ✅ Add this back here to auto-refresh the UI
+      notifyListeners();
     } catch (e) {
       print("Error fetching usernames: $e");
     }

@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:task_management_system/providers/admin_provider.dart';
 import 'package:task_management_system/providers/createTask_provider.dart';
 import 'package:task_management_system/providers/userRegistration_provider.dart';
 import 'package:task_management_system/providers/user_provider.dart';
-import 'package:task_management_system/screens/adminMainDashboard_screen.dart';
-import 'package:task_management_system/screens/loginRule_screen.dart';
+
 import 'package:task_management_system/screens/userMainDashboard_screen.dart';
 
 Future<void> main() async {
@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => userRegistration_provider()),
         ChangeNotifierProvider(create: (_) => createTask_provider()),
-        ChangeNotifierProvider(create: (_) => user_provider())
+        ChangeNotifierProvider(create: (_) => user_provider()),
+        ChangeNotifierProvider(create: (_) => admin_provider()),
       ],
       child: Builder(builder: (BuildContext context){
         return MaterialApp(

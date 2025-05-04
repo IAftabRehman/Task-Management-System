@@ -20,6 +20,8 @@ class RegistrationServices {
       return userNames;
   }
 
+
+
   Future<String?> getUserRoleByEmail(String email) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection("registrationCollection")
@@ -32,5 +34,16 @@ class RegistrationServices {
     } else {
       return null;
     }
+  }
+
+  Future<List<String>> getTaskFromAdminSide() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection("createTaskCollection")
+        .where("userName", isEqualTo: "userName")
+        .get();
+    List<String> TaskData = snapshot.docs
+        .map((doc) => doc['description']["startDate"]["endDate"].toString())
+        .toList();
+    return TaskData;
   }
 }
