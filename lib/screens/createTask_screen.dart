@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:task_management_system/providers/createTask_provider.dart';
+import 'package:task_management_system/providers/admin_provider.dart';
 
 
 class createTask_screen extends StatefulWidget {
@@ -15,13 +15,13 @@ class _createTask_screenState extends State<createTask_screen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<createTask_provider>(context, listen: false).fetchUserNames();
+    Provider.of<admin_provider>(context, listen: false).fetchUserNames();
   }
 
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<createTask_provider>(context, listen: false);
+    final provider = Provider.of<admin_provider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -50,7 +50,7 @@ class _createTask_screenState extends State<createTask_screen> {
                   border: Border.all(color: Colors.blue, width: 1.5),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: Consumer<createTask_provider>(
+                child: Consumer<admin_provider>(
                   builder: (context, provider, child) {
                     return DropdownButton<String>(
                       value: provider.selectedName.isNotEmpty ? provider.selectedName : null,

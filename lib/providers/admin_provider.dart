@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:task_management_system/services/adminServices.dart';
 import '../models/createTaskModel.dart';
-import '../services/createTaskServices.dart';
 import '../services/registrationServices.dart';
 
 class admin_provider with ChangeNotifier {
@@ -81,7 +80,7 @@ class admin_provider with ChangeNotifier {
       isLoading = true;
       notifyListeners();
 
-      await CreateTaskServices()
+      await AdminServices()
           .createTask(
             CreateTaskModel(
               taskId: DateTime.now().millisecondsSinceEpoch.toString(),

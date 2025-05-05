@@ -2,11 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_management_system/providers/admin_provider.dart';
-import 'package:task_management_system/providers/createTask_provider.dart';
 import 'package:task_management_system/providers/userRegistration_provider.dart';
 import 'package:task_management_system/providers/user_provider.dart';
-
-import 'package:task_management_system/screens/userMainDashboard_screen.dart';
+import 'package:task_management_system/screens/adminMainDashboard_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +20,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => userRegistration_provider()),
-        ChangeNotifierProvider(create: (_) => createTask_provider()),
         ChangeNotifierProvider(create: (_) => user_provider()),
         ChangeNotifierProvider(create: (_) => admin_provider()),
       ],
@@ -38,7 +35,7 @@ class MyApp extends StatelessWidget {
           ),
 
           debugShowCheckedModeBanner: false,
-          home: userMainDashboard_screen(),
+          home: adminMainDashboard_screen(),
         );
       }),
     );
