@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:task_management_system/services/adminServices.dart';
 import 'package:task_management_system/services/userServices.dart';
 import '../models/createTaskModel.dart';
-import '../services/registrationServices.dart';
 
 class admin_provider with ChangeNotifier {
   // User Main Dashboard
@@ -20,7 +19,7 @@ class admin_provider with ChangeNotifier {
   List<String> name = [];
   Future<void> fetchUserNames() async {
     try {
-      List<String> userNames = await RegistrationServices().getAllUserNames();
+      List<String> userNames = await AdminServices().getAllUserNames();
       name.clear();
       name.addAll(userNames);
       selectedName = name.isNotEmpty ? name[0] : 'No users found';
@@ -89,6 +88,7 @@ class admin_provider with ChangeNotifier {
               description: descriptionController.text,
               startDate: startDateText.toString(),
               endDate: endDateText.toString(),
+              status: "Progress"
             ),
           )
           .then((val) async {
@@ -122,5 +122,17 @@ class admin_provider with ChangeNotifier {
   }
 
 
+  //-------------------------------------------------------------------------------
+  // Manage File
+  // 1. All Data Show
+  List<Map<String, dynamic>> allTasks = [];
+  Future<void> fetchAllTaskData() async {
+    try {
+      allTasks = (await AdminServices().getAllData()).cast<Map<String, dynamic>>();
+      notifyListeners();
+    } catch (e) {
+      print("Error fetching task data: $e");
+    }
+  }
 
 }

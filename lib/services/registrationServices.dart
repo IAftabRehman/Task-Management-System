@@ -9,16 +9,7 @@ class RegistrationServices {
         .set(model.toJson(model.docId.toString()));
   }
 
-  Future<List<String>> getAllUserNames() async {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection("registrationCollection")
-          .where("userRole", isEqualTo: "Student/User")
-          .get();
-      List<String> userNames = snapshot.docs
-          .map((doc) => doc['name'].toString())
-          .toList();
-      return userNames;
-  }
+
 
 
   // For Login
