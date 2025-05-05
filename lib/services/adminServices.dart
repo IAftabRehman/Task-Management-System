@@ -48,18 +48,26 @@ class AdminServices {
         .collection("createTaskCollection")
         .get();
 
-    return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+    List<Map<String, dynamic>> taskData = snapshot.docs.map((doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      data['docId'] = doc.id;
+      return data;
+    }).toList();
 
+    return taskData;
   }
 
-
-
-
-  // Delete Data
-  Future<void> deleteTask() async {
-    await FirebaseFirestore.instance
-        .collection("createTaskCollection")
-        .doc()
-        .delete();
+  // 2. Get Update or Reedit
+  Future<void> updateTaskById(String docId, Map<String, dynamic> updatedData) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("createTaskCollection")
+          .doc(docId)
+          .update(updatedData);
+    } catch (e) {
+      print("Error updating task: $e");
+      rethrow;
+    }
   }
+
 }

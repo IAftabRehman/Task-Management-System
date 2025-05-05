@@ -37,44 +37,141 @@ class _manageTaskState extends State<manageTask> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: provider.allTasks.isEmpty
-              ? const Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columns: const [
-                DataColumn(label: Text('Task ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15))),
-                DataColumn(label: Text('Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15))),
-                DataColumn(label: Text('Start Date', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15))),
-                DataColumn(label: Text('End Date', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15))),
-                DataColumn(label: Text('Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15))),
-                DataColumn(label: Text('Action', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15))),
-              ],
-              rows: provider.allTasks.map((task) {
-                return DataRow(cells: [
-                  DataCell(Text(task['userName'] ?? '-')),
-                  DataCell(Text(task['description'] ?? '-')),
-                  DataCell(Text(task['startDate'] ?? '-')),
-                  DataCell(Text(task['endDate'] ?? '-')),
-                  DataCell(Text(task['status'] ?? '-')),
-                  DataCell(
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit, color: Colors.blue),
-                          onPressed: (){}
+          child:
+              provider.allTasks.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      columns: const [
+                        DataColumn(
+                          label: Text(
+                            'Task ID',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                         ),
-                        IconButton(
-                            icon: Icon(Icons.delete, color: Colors.red),
-                            onPressed: (){}
+                        DataColumn(
+                          label: Text(
+                            'Description',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Start Date',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'End Date',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Status',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Action',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                         ),
                       ],
+                      rows:
+                          provider.allTasks.map((task) {
+                            return DataRow(
+                              cells: [
+                                DataCell(Text(task['userName'] ?? '-')),
+                                DataCell(Text(task['description'] ?? '-')),
+                                DataCell(Text(task['startDate'] ?? '-')),
+                                DataCell(Text(task['endDate'] ?? '-')),
+                                DataCell(Text(task['status'] ?? '-')),
+                                DataCell(
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.edit,
+                                          color: Colors.blue,
+                                        ),
+                                        onPressed: () => provider.showEditDialog(context, Map())
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder:
+                                                (ctx) => AlertDialog(
+                                                  title: Text("Confirm Delete"),
+                                                  content: Text(
+                                                    "Are you sure you want to delete this task?",
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed:
+                                                          () => Navigator.pop(
+                                                            ctx,
+                                                          ),
+                                                      child: Text("Cancel"),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () async {
+                                                        Navigator.pop(ctx);
+                                                        await Provider.of<
+                                                          admin_provider
+                                                        >(
+                                                          context,
+                                                          listen: false,
+                                                        ).deleteTaskById(
+                                                          task['docId'],
+                                                        ); // ✅ Use docId here
+                                                      },
+                                                      child: Text(
+                                                        "Delete",
+                                                        style: TextStyle(
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                          );
+                                        },
+                                        icon: Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
                     ),
                   ),
-                ]);
-              }).toList(),
-            ),
-          ),
         ),
       ),
     );

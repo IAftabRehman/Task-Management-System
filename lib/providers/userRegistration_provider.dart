@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_management_system/models/registrationModel.dart';
-import 'package:task_management_system/screens/createTask_screen.dart';
+import 'package:task_management_system/screens/adminScreens/createTask.dart';
 import 'package:task_management_system/screens/loginRule_screen.dart';
 import 'package:task_management_system/screens/signUp_screen.dart';
 import 'package:task_management_system/services/authentication.dart';
@@ -81,7 +81,7 @@ class userRegistration_provider with ChangeNotifier {
       await Future.delayed(Duration(milliseconds: 500));
 
       if(selectedRole == "Teacher/Admin"){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => createTask_screen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => createTask()));
       }else if(selectedRole == "Student/User"){
         Navigator.push(context, MaterialPageRoute(builder: (context) => loginRole_screen()));
       }
@@ -118,7 +118,7 @@ class userRegistration_provider with ChangeNotifier {
       if (role == "Teacher/Admin") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => createTask_screen()),
+          MaterialPageRoute(builder: (context) => createTask()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:task_management_system/services/adminServices.dart';
 import 'package:task_management_system/services/userServices.dart';
@@ -93,6 +94,7 @@ class admin_provider with ChangeNotifier {
           )
           .then((val) async {
             isLoading = false;
+            descriptionController.clear();
             notifyListeners();
           });
     } catch (e) {
@@ -134,5 +136,64 @@ class admin_provider with ChangeNotifier {
       print("Error fetching task data: $e");
     }
   }
+
+  // 2. Delete Task
+  Future<void> deleteTaskById(String docId) async {
+    await FirebaseFirestore.instance
+        .collection("createTaskCollection")
+        .doc(docId)
+        .delete();
+    await fetchAllTaskData();
+  }
+
+  // 3. Edit Task
+  Future<void> editTask(String docId, Map<String, dynamic> updatedData) async {
+    await AdminServices().updateTaskById(docId, updatedData);
+    await fetchAllTaskData();
+  }
+
+  void showEditDialog(BuildContext context, Map<String, dynamic> task) {
+    final descriptionController = TextEditingController(text: task['description']);
+    final startDateController = TextEditingController(text: task['startDate']);
+    final endDateController = TextEditingController(text: task['endDate']);
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("Edit Task"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(controller: descriptionController, decoration: InputDecoration(labelText: "Description")),
+            TextField(controller: startDateController, decoration: InputDecoration(labelText: "Start Date")),
+            TextField(controller: endDateController, decoration: InputDecoration(labelText: "End Date")),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () async {
+              final updatedData = {
+                "description": descriptionController.text,
+                "startDate": startDateController.text,
+                "endDate": endDateController.text,
+              };
+
+              await editTask(task['docId'], updatedData);
+
+              Navigator.pop(ctx);
+            },
+            child: Text("Save", style: TextStyle(color: Colors.blue)),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
 
 }
