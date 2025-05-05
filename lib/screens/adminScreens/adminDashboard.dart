@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../providers/admin_provider.dart';
 
 class adminDashboard extends StatelessWidget {
   const adminDashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<admin_provider>(context);
     final mediaHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(

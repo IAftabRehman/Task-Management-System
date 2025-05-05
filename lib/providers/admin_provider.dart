@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_management_system/services/adminServices.dart';
+import 'package:task_management_system/services/userServices.dart';
 import '../models/createTaskModel.dart';
 import '../services/registrationServices.dart';
 
@@ -87,7 +88,7 @@ class admin_provider with ChangeNotifier {
               userName: selectedName.toString(),
               description: descriptionController.text,
               startDate: startDateText.toString(),
-              endDate: endDateText,
+              endDate: endDateText.toString(),
             ),
           )
           .then((val) async {
@@ -110,7 +111,7 @@ class admin_provider with ChangeNotifier {
   List<String> Taskname = [];
   Future<void> fetchTaskInformation() async {
     try {
-      List<String> userNames = await RegistrationServices().getTaskFromAdminSide();
+      List<String> userNames = await UserServices().getTaskFromAdminSide();
       Taskname.clear();
       Taskname.addAll(userNames);
       selectedTask = Taskname.isNotEmpty ? Taskname[0] : 'No users found';

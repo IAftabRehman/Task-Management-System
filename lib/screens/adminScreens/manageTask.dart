@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/admin_provider.dart';
 
 class manageTask extends StatelessWidget {
   const manageTask({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final provider = Provider.of<admin_provider>(context);
+    final provider = Provider.of<admin_provider>(context);
     final mediaHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Container(
@@ -21,7 +23,21 @@ class manageTask extends StatelessWidget {
                 offset: const Offset(0, 6),
               ),
             ],
-          ),child: Text("Manage Task", style: TextStyle(fontSize: 30)),
+          ),child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Task ID"),
+                Text("Description"),
+                Text("Start Date"),
+                Text("End Date"),
+                Text("Status"),
+                Text("Action"),
+              ],
+            ),
+          ),
         )
     );
   }

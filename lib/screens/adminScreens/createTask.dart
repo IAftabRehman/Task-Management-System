@@ -21,7 +21,7 @@ class _createTaskState extends State<createTask> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<admin_provider>(context, listen: false);
+    final provider = Provider.of<admin_provider>(context, listen: true);
     final mediaHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
