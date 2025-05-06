@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_management_system/services/adminServices.dart';
+import 'package:task_management_system/services/authentication.dart';
 import 'package:task_management_system/services/userServices.dart';
 import '../models/createTaskModel.dart';
 
@@ -194,6 +196,25 @@ class admin_provider with ChangeNotifier {
   }
 
 
+  // ------------------------------------------------------------------------------------------
+  // LogOut
+  String? currentId = FirebaseAuth.instance.currentUser?.uid;
+  String? _currentEmail;
 
+  String? get currentEmail => _currentEmail;
 
+  Future<void> getEmail() async {
+  _currentEmail = await AdminServices().currentEmail(currentId!);
+  print("Current Email: $_currentEmail");
+  notifyListeners();
+  }
+
+  // Click in Logout Button
+  final AuthenticationServices _authService = AuthenticationServices();
+  Future<void> logoutUser() async {
+    await _authService.logoutUser();
+    notifyListeners();
+
+    
+  }
 }

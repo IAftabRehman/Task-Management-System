@@ -23,7 +23,12 @@ class AuthenticationServices {
   }
 
   //LogOut
-  Future<void> signOutUser() async {
-    await FirebaseAuth.instance.signOut();
+  Future<void> logoutUser() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      print("Logout Error: $e");
+    }
   }
+
 }

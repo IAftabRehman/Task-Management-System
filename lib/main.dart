@@ -1,3 +1,4 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,7 +6,7 @@ import 'package:task_management_system/providers/admin_provider.dart';
 import 'package:task_management_system/providers/userRegistration_provider.dart';
 import 'package:task_management_system/providers/user_provider.dart';
 import 'package:task_management_system/screens/adminMainDashboard_screen.dart';
-
+import 'package:task_management_system/screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,22 +25,29 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => user_provider()),
         ChangeNotifierProvider(create: (_) => admin_provider()),
       ],
-      child: Builder(builder: (BuildContext context){
-        return MaterialApp(
-          theme: ThemeData(
+      child: Builder(
+        builder: (BuildContext context) {
+          return MaterialApp(
+            theme: ThemeData(
               primaryColor: Colors.blue,
-              brightness: Brightness.light
-          ),
-          darkTheme: ThemeData(
+              brightness: Brightness.light,
+            ),
+            darkTheme: ThemeData(
               primarySwatch: Colors.blue,
-              brightness: Brightness.dark
-          ),
+              brightness: Brightness.dark,
+            ),
 
-          debugShowCheckedModeBanner: false,
-          home: adminMainDashboard_screen(),
-        );
-      }),
+            debugShowCheckedModeBanner: false,
+            home: AnimatedSplashScreen(
+              splashIconSize: 2100,
+              centered: false,
+              duration: 4000,
+              splash: splash_Screen(),
+              nextScreen: adminMainDashboard_screen(),
+            ),
+          );
+        },
+      ),
     );
   }
 }
-

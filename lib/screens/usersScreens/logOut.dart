@@ -36,7 +36,7 @@ class _logOutState extends State<logOut> {
             SizedBox(height: 100),
             ElevatedButton(
               onPressed: () async {
-                await auth.signOutUser();
+                await auth.logoutUser();
                 Navigator.pushReplacementNamed(context, '/login');
               },
               child: Text("LogOut"),

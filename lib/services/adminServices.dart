@@ -29,8 +29,6 @@ class AdminServices {
     return userNames;
   }
 
-
-
   // Create Task
   Future<void> createTask(CreateTaskModel model) async {
     return await FirebaseFirestore.instance
@@ -39,26 +37,29 @@ class AdminServices {
         .set(model.toJson(model.taskId.toString()));
   }
 
-
-
   // Manage Task
   // 1. Get All Data
   Future<List<Map<String, dynamic>>> getAllData() async {
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection("createTaskCollection")
-        .get();
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance
+            .collection("createTaskCollection")
+            .get();
 
-    List<Map<String, dynamic>> taskData = snapshot.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
-      data['docId'] = doc.id;
-      return data;
-    }).toList();
+    List<Map<String, dynamic>> taskData =
+        snapshot.docs.map((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          data['docId'] = doc.id;
+          return data;
+        }).toList();
 
     return taskData;
   }
 
   // 2. Get Update or Reedit
-  Future<void> updateTaskById(String docId, Map<String, dynamic> updatedData) async {
+  Future<void> updateTaskById(
+    String docId,
+    Map<String, dynamic> updatedData,
+  ) async {
     try {
       await FirebaseFirestore.instance
           .collection("createTaskCollection")
@@ -67,6 +68,21 @@ class AdminServices {
     } catch (e) {
       print("Error updating task: $e");
       rethrow;
+    }
+  }
+
+  // Current Email (for LogOut)
+  Future<String?> currentEmail(String id) async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection("registrationCollection")
+        .where("docId", isEqualTo: id)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      var doc = snapshot.docs.first;
+      return doc["email"];
+    } else {
+      return null;
     }
   }
 

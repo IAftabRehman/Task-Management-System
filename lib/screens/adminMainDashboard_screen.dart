@@ -110,7 +110,7 @@ class _adminMainDashboard_screenState extends State<adminMainDashboard_screen> {
                         backgroundColor: Colors.blue,
                       ),
                       child: Text(
-                        "Leave Status",
+                        "Leave Application",
                         style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
                     ),
