@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task_management_system/models/registrationModel.dart';
-import 'package:task_management_system/screens/adminScreens/createTask.dart';
+import 'package:task_management_system/screens/adminMainDashboard_screen.dart';
 import 'package:task_management_system/screens/loginRule_screen.dart';
-import 'package:task_management_system/screens/signUp_screen.dart';
+import 'package:task_management_system/screens/userMainDashboard_screen.dart';
 import 'package:task_management_system/services/authentication.dart';
 import 'package:task_management_system/services/registrationServices.dart';
 
@@ -81,9 +81,9 @@ class userRegistration_provider with ChangeNotifier {
       await Future.delayed(Duration(milliseconds: 500));
 
       if(selectedRole == "Teacher/Admin"){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => createTask()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => adminMainDashboard_screen()));
       }else if(selectedRole == "Student/User"){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => loginRole_screen()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => userMainDashboard_screen()));
       }
     } catch (e) {
       isLoading = false;
@@ -118,7 +118,7 @@ class userRegistration_provider with ChangeNotifier {
       if (role == "Teacher/Admin") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => createTask()),
+          MaterialPageRoute(builder: (context) => adminMainDashboard_screen()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -158,7 +158,7 @@ class userRegistration_provider with ChangeNotifier {
       if (role == "Student/User") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => signUp_screen()),
+          MaterialPageRoute(builder: (context) => userMainDashboard_screen()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(

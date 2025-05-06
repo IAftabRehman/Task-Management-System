@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:task_management_system/providers/admin_provider.dart';
 import 'package:task_management_system/providers/userRegistration_provider.dart';
 import 'package:task_management_system/providers/user_provider.dart';
-import 'package:task_management_system/screens/adminMainDashboard_screen.dart';
+import 'package:task_management_system/screens/signUp_screen.dart';
 import 'package:task_management_system/screens/splash_screen.dart';
 
 Future<void> main() async {
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
               centered: false,
               duration: 4000,
               splash: splash_Screen(),
-              nextScreen: adminMainDashboard_screen(),
+              nextScreen: signUp_screen(),
             ),
           );
         },
