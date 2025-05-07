@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:task_management_system/models/updationTaskModel.dart';
 import 'package:task_management_system/models/userModel.dart';
 
 class UserServices {
@@ -80,6 +81,15 @@ class UserServices {
   Future<void> setApplyLeaveDataIntoFirebase(UserModel model) async {
     return await FirebaseFirestore.instance
         .collection("applyLeaveCollection")
+        .doc(model.docId)
+        .set(model.toJson(model.docId.toString()));
+  }
+
+
+  // Update Task (Status Action Button)
+  Future<void> updationStatuData(UpdationTaskModel model) async {
+    return await FirebaseFirestore.instance
+        .collection("updationTaskCollection")
         .doc(model.docId)
         .set(model.toJson(model.docId.toString()));
   }

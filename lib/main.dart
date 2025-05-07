@@ -7,6 +7,7 @@ import 'package:task_management_system/providers/userRegistration_provider.dart'
 import 'package:task_management_system/providers/user_provider.dart';
 import 'package:task_management_system/screens/signUp_screen.dart';
 import 'package:task_management_system/screens/splash_screen.dart';
+import 'package:task_management_system/screens/userMainDashboard_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
               centered: false,
               duration: 4000,
               splash: splash_Screen(),
-              nextScreen: signUp_screen(),
+              nextScreen: userMainDashboard_screen(),
             ),
           );
         },
