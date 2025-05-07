@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/createTaskModel.dart';
 
 class AdminServices {
+
+  // Get User through by Email
   Future<String?> getUserRoleByEmail(String email) async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance
@@ -17,7 +19,7 @@ class AdminServices {
     }
   }
 
-  // For Create Task (get User name)
+  // For Creating Task (Get User Name [show in the fields])
   Future<List<String>> getAllUserNames() async {
     QuerySnapshot snapshot =
         await FirebaseFirestore.instance
@@ -85,6 +87,4 @@ class AdminServices {
       return null;
     }
   }
-
-
 }

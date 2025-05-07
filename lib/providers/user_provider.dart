@@ -96,12 +96,6 @@ class user_provider with ChangeNotifier {
   TextEditingController messageController = TextEditingController();
   bool submitButton = false;
 
-  Future<String> getCurrentUserName() async {
-    final user = FirebaseAuth.instance.currentUser;
-
-    final doc = await FirebaseFirestore.instance.collection('registrationCollection').doc(user?.uid).get();
-    return doc['name'] ? doc.data()!['name'] ?? "No Name Found" : "No Data Found";
-  }
 
   Future<void> setApplyLeaveData(BuildContext context) async {
     if(subjectController.text.isEmpty){
@@ -116,14 +110,13 @@ class user_provider with ChangeNotifier {
     try{
     submitButton = true;
     notifyListeners();
-    String userName = getCurrentUserName().toString();
-
+    String? userName = FirebaseAuth.instance.currentUser?.displayName;
     await UserServices().setApplyLeaveDataIntoFirebase(
       UserModel(
         docId: DateTime.now().millisecondsSinceEpoch.toString(),
-        userName: userName,
         subject: subjectController.text,
         message: messageController.text,
+        userName: userName.toString(),
         createdBy: DateTime.now().millisecondsSinceEpoch,
       ),
     ).then((val)  {
