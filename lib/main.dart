@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:task_management_system/providers/admin_provider.dart';
 import 'package:task_management_system/providers/userRegistration_provider.dart';
 import 'package:task_management_system/providers/user_provider.dart';
-import 'package:task_management_system/screens/signUp_screen.dart';
 import 'package:task_management_system/screens/splash_screen.dart';
 import 'package:task_management_system/screens/userMainDashboard_screen.dart';
 
