@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:task_management_system/models/createTaskModel.dart';
 import 'package:task_management_system/models/updationTaskModel.dart';
-import 'package:task_management_system/models/userModel.dart';
+import 'package:task_management_system/models/applyLeaveUpdationModel.dart';
 import '../services/adminServices.dart';
 import '../services/userServices.dart';
 
@@ -92,12 +92,17 @@ class user_provider with ChangeNotifier {
   }
 
   // Apply Leave
+  TextEditingController userNameController = TextEditingController();
   TextEditingController subjectController = TextEditingController();
   TextEditingController messageController = TextEditingController();
   bool submitButton = false;
 
 
   Future<void> setApplyLeaveData(BuildContext context) async {
+    if(userNameController.text.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Name would not be empty")));
+      return;
+    }
     if(subjectController.text.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Subject would not be empty")));
       return;
@@ -110,17 +115,17 @@ class user_provider with ChangeNotifier {
     try{
     submitButton = true;
     notifyListeners();
-    String? userName = FirebaseAuth.instance.currentUser?.displayName;
     await UserServices().setApplyLeaveDataIntoFirebase(
-      UserModel(
+      applyLeaveUpdationModel(
         docId: DateTime.now().millisecondsSinceEpoch.toString(),
         subject: subjectController.text,
         message: messageController.text,
-        userName: userName.toString(),
-        createdBy: DateTime.now().millisecondsSinceEpoch,
+        userName: userNameController.text,
+        status: "Pending",
       ),
     ).then((val)  {
       submitButton = false;
+      userNameController.clear();
       subjectController.clear();
       messageController.clear();
       notifyListeners();

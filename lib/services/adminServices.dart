@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/createTaskModel.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+
+import '../models/leaveStatusModel.dart';
 
 class AdminServices {
-
   // Get User through by Email
   Future<String?> getUserRoleByEmail(String email) async {
     QuerySnapshot querySnapshot =
@@ -75,10 +78,11 @@ class AdminServices {
 
   // Current Email (for LogOut)
   Future<String?> currentEmail(String id) async {
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection("registrationCollection")
-        .where("docId", isEqualTo: id)
-        .get();
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance
+            .collection("registrationCollection")
+            .where("docId", isEqualTo: id)
+            .get();
 
     if (snapshot.docs.isNotEmpty) {
       var doc = snapshot.docs.first;
@@ -86,5 +90,29 @@ class AdminServices {
     } else {
       return null;
     }
+  }
+
+  // Leave Application Data
+  Future<List<Map<String, dynamic>>> getLeaveApplicationData() async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance
+            .collection("applyLeaveCollection")
+            .get();
+
+    List<Map<String, dynamic>> taskData =
+        snapshot.docs.map((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          data['docId'] = doc.id;
+          return data;
+        }).toList();
+
+    return taskData;
+  }
+
+  Future<void> leaveApplicationStatus(LeaveStatusModel model) async {
+    return await FirebaseFirestore.instance
+        .collection("leaveApplicationStatus")
+        .doc(model.docId)
+        .set(model.toJson(model.docId.toString()));
   }
 }

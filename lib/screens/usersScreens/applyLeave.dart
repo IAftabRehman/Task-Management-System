@@ -36,6 +36,33 @@ class applyLeave extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   TextField(
+                    controller: provider.userNameController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: "Name",
+                      labelStyle: const TextStyle(
+                        color: Colors.blueGrey,
+                        fontSize: 16,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.indigo,
+                          width: 1.5,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          color: Colors.deepPurple,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
                     controller: provider.subjectController,
                     decoration: InputDecoration(
                       filled: true,

@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:task_management_system/screens/adminScreens/leaveApplication.dart';
 import 'package:task_management_system/services/adminServices.dart';
 import 'package:task_management_system/services/authentication.dart';
 import 'package:task_management_system/services/userServices.dart';
+import '../models/applyLeaveUpdationModel.dart';
 import '../models/createTaskModel.dart';
+import '../models/leaveStatusModel.dart';
 
 class admin_provider with ChangeNotifier {
   // User Main Dashboard
@@ -214,8 +217,79 @@ class admin_provider with ChangeNotifier {
   Future<void> logoutUser() async {
     await _authService.logoutUser();
     notifyListeners();
+  }
 
-    
+  //-----------------------------------------------------------------------------------------------
+  // Leave Application
+  List<Map<String, dynamic>> leaveApplication = [];
+  Future<void> fetchLeaveApplication() async {
+    try {
+      leaveApplication = (await AdminServices().getLeaveApplicationData()).cast<Map<String, dynamic>>();
+      notifyListeners();
+    } catch (e) {
+      print("Error fetching task data: $e");
+    }
+  }
+
+
+  Future<void> getUpdateLeaveStatus(BuildContext context, bool value) async{
+    bool accept = false;
+    bool reject = true;
+    String hello = "";
+    if(accept == value){
+      hello = "Accept";
+    }if(reject == value){
+      hello = "reject";
+    }
+    TextEditingController nameController = TextEditingController();
+
+    notifyListeners();
+    try{
+
+      showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            title: const Text("Enter Student Name"),
+            content: TextField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "Student Name",
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text("Cancel"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final name = nameController.text;
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Name entered: $name")),
+                  );
+                },
+                child: const Text("Submit"),
+              ),
+            ],
+          );
+        },
+      ).then((onValue)async{
+        await  AdminServices().leaveApplicationStatus(
+            LeaveStatusModel(
+                docId: DateTime.now().millisecondsSinceEpoch.toString(),
+                userName: nameController.text,
+                status: hello.toString()
+            )
+        );
+      });
+
+
+    }catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 
 }
