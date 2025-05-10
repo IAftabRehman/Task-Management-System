@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-UpdationTaskModel updationTaskModelFromJson(String str) => UpdationTaskModel.fromJson(json.decode(str));
+UpdationTaskModel updationTaskModelFromJson(String str) =>
+    UpdationTaskModel.fromJson(json.decode(str));
 
 class UpdationTaskModel {
   final String? userName;
@@ -19,14 +20,15 @@ class UpdationTaskModel {
     this.status,
   });
 
-  factory UpdationTaskModel.fromJson(Map<String, dynamic> json) => UpdationTaskModel(
-    userName: json["userName"],
-    description: json["description"],
-    startDate: json["startDate"],
-    endDate: json["endDate"],
-    docId: json["docId"],
-    status: json["status"],
-  );
+  factory UpdationTaskModel.fromJson(Map<String, dynamic> json) =>
+      UpdationTaskModel(
+        userName: json["userName"],
+        description: json["description"],
+        startDate: json["startDate"],
+        endDate: json["endDate"],
+        docId: json["docId"],
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson(String? docId) => {
     "userName": userName,

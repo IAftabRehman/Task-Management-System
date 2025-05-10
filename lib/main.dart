@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:task_management_system/providers/admin_provider.dart';
 import 'package:task_management_system/providers/userRegistration_provider.dart';
 import 'package:task_management_system/providers/user_provider.dart';
-import 'package:task_management_system/screens/adminMainDashboard_screen.dart';
 import 'package:task_management_system/screens/splash_screen.dart';
 import 'package:task_management_system/screens/userMainDashboard_screen.dart';
 
@@ -44,7 +43,7 @@ class MyApp extends StatelessWidget {
               centered: false,
               duration: 4000,
               splash: splash_Screen(),
-              nextScreen: adminMainDashboard_screen(),
+              nextScreen: userMainDashboard_screen(),
             ),
           );
         },

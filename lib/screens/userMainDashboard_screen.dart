@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_management_system/providers/user_provider.dart';
+import 'package:task_management_system/screens/usersScreens/applicationStatus.dart';
 import 'package:task_management_system/screens/usersScreens/applyLeave.dart';
 import 'package:task_management_system/screens/usersScreens/logOut.dart';
 import 'package:task_management_system/screens/usersScreens/updateTask.dart';
@@ -21,6 +22,7 @@ class _userMainDashboard_screenState extends State<userMainDashboard_screen> {
     userDashboard(),
     updateTask(),
     applyLeave(),
+    applicationStatusData(),
     logOut(),
   ];
 
@@ -30,7 +32,7 @@ class _userMainDashboard_screenState extends State<userMainDashboard_screen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Dear Sir/Mam",
+          "Dear Student/User",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -82,12 +84,8 @@ class _userMainDashboard_screenState extends State<userMainDashboard_screen> {
                         style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
                     ),
-                  )
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
+                  ),
+                  SizedBox(width: 5),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () => provider.changeIndex(2),
@@ -96,6 +94,23 @@ class _userMainDashboard_screenState extends State<userMainDashboard_screen> {
                       ),
                       child: Text(
                         "Apply Leave",
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => provider.changeIndex(3),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        "Application Status",
                         style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
                     ),

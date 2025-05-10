@@ -19,8 +19,8 @@ class _leaveApplicationState extends State<leaveApplication> {
 
   @override
   Widget build(BuildContext context) {
-   final provider = Provider.of<admin_provider>(context);
-   final mediaHeight = MediaQuery.of(context).size.height;
+    final provider = Provider.of<admin_provider>(context);
+    final mediaHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         height: mediaHeight * 0.7,
@@ -39,81 +39,89 @@ class _leaveApplicationState extends State<leaveApplication> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child:
-          provider.leaveApplication.isEmpty
-              ? const Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columns: const [
-                DataColumn(
-                  label: Text(
-                    'User Name',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Subject',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Description',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Action',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-              ],
-              rows:
-              provider.leaveApplication.map((task) {
-                return DataRow(
-                  cells: [
-                    DataCell(Text(task['userName'] ?? '-')),
-                    DataCell(Text(task['subject'] ?? '-')),
-                    DataCell(Text(task['description'] ?? '-')),
-                    DataCell(
-                      Row(
-                        children: [
-                          IconButton(
-                              icon: Icon(
-                                Icons.done_all_sharp,
-                                color: Colors.blue,
-                              ),
-                              onPressed: () => provider.getUpdateLeaveStatus(context, false)
-                          ),
-                          IconButton(
-                            onPressed: () => provider.getUpdateLeaveStatus(context, true),
-                            icon: Icon(
-                              Icons.add_box_rounded,
-                              color: Colors.red,
+              provider.leaveApplication.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      columns: const [
+                        DataColumn(
+                          label: Text(
+                            'User Name',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Subject',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Description',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Action',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                      rows:
+                          provider.leaveApplication.map((task) {
+                            return DataRow(
+                              cells: [
+                                DataCell(Text(task['userName'] ?? '-')),
+                                DataCell(Text(task['subject'] ?? '-')),
+                                DataCell(Text(task['description'] ?? '-')),
+                                DataCell(
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.done_all_sharp,
+                                          color: Colors.blue,
+                                        ),
+                                        onPressed:
+                                            () => provider.getUpdateLeaveStatus(
+                                              context,
+                                              false,
+                                            ),
+                                      ),
+                                      IconButton(
+                                        onPressed:
+                                            () => provider.getUpdateLeaveStatus(
+                                              context,
+                                              true,
+                                            ),
+                                        icon: Icon(
+                                          Icons.add_box_rounded,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
                     ),
-                  ],
-                );
-              }).toList(),
-            ),
-          ),
+                  ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 AdminModel adminModelFromJson(String str) => AdminModel.fromJson(json.decode(str));
 String adminModelToJson(AdminModel data) => json.encode(data.toJson());
 

@@ -80,10 +80,16 @@ class userRegistration_provider with ChangeNotifier {
 
       await Future.delayed(Duration(milliseconds: 500));
 
-      if(selectedRole == "Teacher/Admin"){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => adminMainDashboard_screen()));
-      }else if(selectedRole == "Student/User"){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => userMainDashboard_screen()));
+      if (selectedRole == "Teacher/Admin") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => adminMainDashboard_screen()),
+        );
+      } else if (selectedRole == "Student/User") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => userMainDashboard_screen()),
+        );
       }
     } catch (e) {
       isLoading = false;

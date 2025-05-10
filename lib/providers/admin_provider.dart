@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:task_management_system/screens/adminScreens/leaveApplication.dart';
+import 'package:task_management_system/screens/loginRule_screen.dart';
 import 'package:task_management_system/services/adminServices.dart';
 import 'package:task_management_system/services/authentication.dart';
 import 'package:task_management_system/services/userServices.dart';
-import '../models/applyLeaveUpdationModel.dart';
 import '../models/createTaskModel.dart';
 import '../models/leaveStatusModel.dart';
 
@@ -17,12 +16,14 @@ class admin_provider with ChangeNotifier {
     _selectedIndex = newIndex;
     notifyListeners();
   }
+
   //-----------------------------------------------------------------------------------
   // Create Task
   TextEditingController descriptionController = TextEditingController();
   bool isLoading = false;
   String selectedName = "";
   List<String> name = [];
+
   Future<void> fetchUserNames() async {
     try {
       List<String> userNames = await AdminServices().getAllUserNames();
@@ -94,7 +95,7 @@ class admin_provider with ChangeNotifier {
               description: descriptionController.text,
               startDate: startDateText.toString(),
               endDate: endDateText.toString(),
-              status: "Progress"
+              status: "Progress",
             ),
           )
           .then((val) async {
@@ -111,11 +112,11 @@ class admin_provider with ChangeNotifier {
     }
   }
 
-
-//-----------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------
 
   String selectedTask = "";
   List<String> Taskname = [];
+
   Future<void> fetchTaskInformation() async {
     try {
       List<String> userNames = await UserServices().getTaskFromAdminSide();
@@ -128,14 +129,15 @@ class admin_provider with ChangeNotifier {
     }
   }
 
-
   //-------------------------------------------------------------------------------
   // Manage File
   // 1. All Data Show
   List<Map<String, dynamic>> allTasks = [];
+
   Future<void> fetchAllTaskData() async {
     try {
-      allTasks = (await AdminServices().getAllData()).cast<Map<String, dynamic>>();
+      allTasks =
+          (await AdminServices().getAllData()).cast<Map<String, dynamic>>();
       notifyListeners();
     } catch (e) {
       print("Error fetching task data: $e");
@@ -158,46 +160,57 @@ class admin_provider with ChangeNotifier {
   }
 
   void showEditDialog(BuildContext context, Map<String, dynamic> task) {
-    final descriptionController = TextEditingController(text: task['description']);
+    final descriptionController = TextEditingController(
+      text: task['description'],
+    );
     final startDateController = TextEditingController(text: task['startDate']);
     final endDateController = TextEditingController(text: task['endDate']);
 
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text("Edit Task"),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(controller: descriptionController, decoration: InputDecoration(labelText: "Description")),
-            TextField(controller: startDateController, decoration: InputDecoration(labelText: "Start Date")),
-            TextField(controller: endDateController, decoration: InputDecoration(labelText: "End Date")),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: Text("Cancel"),
-          ),
-          TextButton(
-            onPressed: () async {
-              final updatedData = {
-                "description": descriptionController.text,
-                "startDate": startDateController.text,
-                "endDate": endDateController.text,
-              };
+      builder:
+          (ctx) => AlertDialog(
+            title: Text("Edit Task"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: descriptionController,
+                  decoration: InputDecoration(labelText: "Description"),
+                ),
+                TextField(
+                  controller: startDateController,
+                  decoration: InputDecoration(labelText: "Start Date"),
+                ),
+                TextField(
+                  controller: endDateController,
+                  decoration: InputDecoration(labelText: "End Date"),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: Text("Cancel"),
+              ),
+              TextButton(
+                onPressed: () async {
+                  final updatedData = {
+                    "description": descriptionController.text,
+                    "startDate": startDateController.text,
+                    "endDate": endDateController.text,
+                  };
 
-              await editTask(task['docId'], updatedData);
+                  await editTask(task['docId'], updatedData);
 
-              Navigator.pop(ctx);
-            },
-            child: Text("Save", style: TextStyle(color: Colors.blue)),
+                  Navigator.pop(ctx);
+                },
+                child: Text("Save", style: TextStyle(color: Colors.blue)),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
-
 
   // ------------------------------------------------------------------------------------------
   // LogOut
@@ -207,45 +220,53 @@ class admin_provider with ChangeNotifier {
   String? get currentEmail => _currentEmail;
 
   Future<void> getEmail() async {
-  _currentEmail = await AdminServices().currentEmail(currentId!);
-  print("Current Email: $_currentEmail");
-  notifyListeners();
+    _currentEmail = await AdminServices().currentEmail(currentId!);
+    print("Current Email: $_currentEmail");
+    notifyListeners();
   }
 
   // Click in Logout Button
   final AuthenticationServices _authService = AuthenticationServices();
-  Future<void> logoutUser() async {
-    await _authService.logoutUser();
+
+  Future<void> logoutUser(BuildContext context) async {
+    await _authService.logoutUser().then((val) async {
+      await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => loginRole_screen()),
+      );
+    });
     notifyListeners();
   }
 
   //-----------------------------------------------------------------------------------------------
   // Leave Application
   List<Map<String, dynamic>> leaveApplication = [];
+
   Future<void> fetchLeaveApplication() async {
     try {
-      leaveApplication = (await AdminServices().getLeaveApplicationData()).cast<Map<String, dynamic>>();
+      leaveApplication =
+          (await AdminServices().getLeaveApplicationData())
+              .cast<Map<String, dynamic>>();
       notifyListeners();
     } catch (e) {
       print("Error fetching task data: $e");
     }
   }
 
-
-  Future<void> getUpdateLeaveStatus(BuildContext context, bool value) async{
+  Future<void> getUpdateLeaveStatus(BuildContext context, bool value) async {
     bool accept = false;
     bool reject = true;
     String hello = "";
-    if(accept == value){
-      hello = "Accept";
-    }if(reject == value){
-      hello = "reject";
+    if (accept == value) {
+      hello = "Your Application is Accepted";
+    }
+    if (reject == value) {
+      hello = "Your Application is Rejected";
     }
     TextEditingController nameController = TextEditingController();
 
     notifyListeners();
-    try{
-
+    try {
       showDialog(
         context: context,
         builder: (_) {
@@ -276,20 +297,19 @@ class admin_provider with ChangeNotifier {
             ],
           );
         },
-      ).then((onValue)async{
-        await  AdminServices().leaveApplicationStatus(
-            LeaveStatusModel(
-                docId: DateTime.now().millisecondsSinceEpoch.toString(),
-                userName: nameController.text,
-                status: hello.toString()
-            )
+      ).then((onValue) async {
+        await AdminServices().leaveApplicationStatus(
+          LeaveStatusModel(
+            docId: DateTime.now().millisecondsSinceEpoch.toString(),
+            userName: nameController.text,
+            status: hello.toString(),
+          ),
         );
       });
-
-
-    }catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
-
 }

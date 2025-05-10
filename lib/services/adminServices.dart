@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/createTaskModel.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
 
 import '../models/leaveStatusModel.dart';
 
@@ -60,7 +58,7 @@ class AdminServices {
     return taskData;
   }
 
-  // 2. Get Update or Reedit
+  // 2. Get Update or ReEdit
   Future<void> updateTaskById(
     String docId,
     Map<String, dynamic> updatedData,

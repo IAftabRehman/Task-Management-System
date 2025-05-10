@@ -116,7 +116,11 @@ class _manageTaskState extends State<manageTask> {
                                           Icons.edit,
                                           color: Colors.blue,
                                         ),
-                                        onPressed: () => provider.showEditDialog(context, Map())
+                                        onPressed:
+                                            () => provider.showEditDialog(
+                                              context,
+                                              Map(),
+                                            ),
                                       ),
                                       IconButton(
                                         onPressed: () {

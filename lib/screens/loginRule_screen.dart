@@ -61,7 +61,14 @@ class loginRole_screen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text("Select Your Login Role", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+              Text(
+                "Select Your Login Role",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -70,8 +77,8 @@ class loginRole_screen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green.shade200,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)
-                      )
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                     child: Text(
                       "User Login",
@@ -81,10 +88,10 @@ class loginRole_screen extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () => provider.loginAuthenticationAdmin(context),
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green.shade200,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)
-                        )
+                      backgroundColor: Colors.green.shade200,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                     child: Text(
                       "Admin Login",

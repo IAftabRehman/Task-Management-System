@@ -78,19 +78,45 @@ class UserServices {
   }
 
   // ------------------------------------------------------------------------------
-  Future<void> setApplyLeaveDataIntoFirebase(applyLeaveUpdationModel model) async {
+  Future<void> setApplyLeaveDataIntoFirebase(
+    applyLeaveUpdationModel model,
+  ) async {
     return await FirebaseFirestore.instance
         .collection("applyLeaveCollection")
         .doc(model.docId)
         .set(model.toJson(model.docId.toString()));
   }
 
-
-  // Update Task (Status Action Button)
-  Future<void> updationStatuData(UpdationTaskModel model) async {
+  // Update Application Apply (Status Action Button)
+  Future<void> updationStatusData(UpdationTaskModel model) async {
     return await FirebaseFirestore.instance
         .collection("updationTaskCollection")
         .doc(model.docId)
         .set(model.toJson(model.docId.toString()));
+  }
+
+  // ---------------------------------------------------------------------------------
+  // This is Application Status Data ( To show to user [how you status is accepted or rejected])
+  Future<List<Map<String, dynamic>>?> getApplicationStatusData() async {
+    try {
+      QuerySnapshot snapshot =
+          await FirebaseFirestore.instance
+              .collection("leaveApplicationStatus")
+              .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        // Convert each document into a Map<String, dynamic>
+        return snapshot.docs.map((doc) {
+          var data = doc.data() as Map<String, dynamic>;
+          data['id'] = doc.id; // optional: include doc ID if needed
+          return data;
+        }).toList();
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print("Error getting data: $e");
+      return null;
+    }
   }
 }

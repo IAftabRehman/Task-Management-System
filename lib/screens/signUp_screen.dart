@@ -50,12 +50,13 @@ class signUp_screen extends StatelessWidget {
                 ),
               ),
               value: provider.selectedRole,
-              items: provider.role.map((role) {
-                return DropdownMenuItem<String>(
-                  value: role,
-                  child: Text(role),
-                );
-              }).toList(),
+              items:
+                  provider.role.map((role) {
+                    return DropdownMenuItem<String>(
+                      value: role,
+                      child: Text(role),
+                    );
+                  }).toList(),
               onChanged: provider.setRole,
             ),
             const SizedBox(height: 10),
@@ -68,12 +69,13 @@ class signUp_screen extends StatelessWidget {
                 ),
               ),
               value: provider.selectedGender,
-              items: provider.genders.map((gender) {
-                return DropdownMenuItem<String>(
-                  value: gender,
-                  child: Text(gender),
-                );
-              }).toList(),
+              items:
+                  provider.genders.map((gender) {
+                    return DropdownMenuItem<String>(
+                      value: gender,
+                      child: Text(gender),
+                    );
+                  }).toList(),
               onChanged: provider.setGender,
             ),
             const SizedBox(height: 10),
@@ -108,16 +110,22 @@ class signUp_screen extends StatelessWidget {
                 provider.isLoading
                     ? const CircularProgressIndicator()
                     : ElevatedButton(
-                  onPressed: () => provider.signUp(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
-                  child: const Text("SignUp", style: TextStyle(color: Colors.white)),
-                ),
+                      onPressed: () => provider.signUp(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: const Text(
+                        "SignUp",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                 ElevatedButton(
                   onPressed: () => provider.loginScreen(context),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  child: const Text("Login", style: TextStyle(color: Colors.white)),
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),

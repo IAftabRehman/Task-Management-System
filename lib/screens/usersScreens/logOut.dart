@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../services/authentication.dart';
+import 'package:provider/provider.dart';
+import '../../providers/admin_provider.dart';
 
 class logOut extends StatefulWidget {
   const logOut({super.key});
@@ -9,11 +10,18 @@ class logOut extends StatefulWidget {
 }
 
 class _logOutState extends State<logOut> {
+  @override
+  void initState() {
+    super.initState();
+    // Call the getEmail function
+    Provider.of<admin_provider>(context, listen: false).getEmail();
+  }
 
-  final auth = AuthenticationServices();
   @override
   Widget build(BuildContext context) {
-    double mediaHeight = MediaQuery.of(context).size.height;
+    final provider = Provider.of<admin_provider>(context, listen: true);
+    final mediaHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 5),
@@ -30,18 +38,35 @@ class _logOutState extends State<logOut> {
             ),
           ],
         ),
-        child: Column(
-          children: [
-            Text("LogOut", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black)),
-            SizedBox(height: 100),
-            ElevatedButton(
-              onPressed: () async {
-                await auth.logoutUser();
-                Navigator.pushReplacementNamed(context, '/login');
-              },
-              child: Text("LogOut"),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "LogOut",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20),
+              Text(
+                provider.currentEmail ?? "Loading email...",
+                style: TextStyle(fontSize: 16, color: Colors.black),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => provider.logoutUser(context),
+                child: Text(
+                  "LogOut",
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+              ),
+            ],
+          ),
         ),
       ),
     );

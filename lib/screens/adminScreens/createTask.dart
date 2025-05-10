@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_management_system/providers/admin_provider.dart';
 
-
 class createTask extends StatefulWidget {
   const createTask({super.key});
 
@@ -11,13 +10,11 @@ class createTask extends StatefulWidget {
 }
 
 class _createTaskState extends State<createTask> {
-
   @override
   void initState() {
     super.initState();
     Provider.of<admin_provider>(context, listen: false).fetchUserNames();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +23,19 @@ class _createTaskState extends State<createTask> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-            height: mediaHeight * 0.7,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.greenAccent,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.greenAccent,
-                  spreadRadius: 3,
-                  blurRadius: 12,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-            ),
+          height: mediaHeight * 0.7,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.greenAccent,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.greenAccent,
+                spreadRadius: 3,
+                blurRadius: 12,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Center(
@@ -55,7 +52,10 @@ class _createTaskState extends State<createTask> {
                     child: Consumer<admin_provider>(
                       builder: (context, provider, child) {
                         return DropdownButton<String>(
-                          value: provider.selectedName.isNotEmpty ? provider.selectedName : null,
+                          value:
+                              provider.selectedName.isNotEmpty
+                                  ? provider.selectedName
+                                  : null,
                           style: const TextStyle(
                             color: Colors.blue,
                             fontSize: 18,
@@ -66,12 +66,13 @@ class _createTaskState extends State<createTask> {
                           isExpanded: true,
                           itemHeight: 60,
                           hint: const Text("Select a user"),
-                          items: provider.name.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+                          items:
+                              provider.name.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
                           onChanged: (newValue) {
                             if (newValue != null) {
                               provider.updateSelectedItem(newValue);
@@ -121,17 +122,24 @@ class _createTaskState extends State<createTask> {
                   ),
                   SizedBox(height: 40),
 
-                  provider.isLoading ? Center(child: CircularProgressIndicator()) :
-                  ElevatedButton(onPressed: (){
-                    provider.pushTaskDetails(context);
-                  },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+                  provider.isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : ElevatedButton(
+                        onPressed: () {
+                          provider.pushTaskDetails(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          backgroundColor: Colors.blue,
+                          minimumSize: Size(100, 55),
                         ),
-                        backgroundColor: Colors.blue,
-                        minimumSize: Size(100, 55),
-                      ),child: Text("Create Task", style: TextStyle(fontSize: 20, color: Colors.white)))
+                        child: Text(
+                          "Create Task",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      ),
                 ],
               ),
             ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
-CreateTaskModel createTaskModelFromJson(String str) => CreateTaskModel.fromJson(json.decode(str));
 
+CreateTaskModel createTaskModelFromJson(String str) =>
+    CreateTaskModel.fromJson(json.decode(str));
 
 class CreateTaskModel {
   final String? taskId;
@@ -19,14 +20,15 @@ class CreateTaskModel {
     this.status,
   });
 
-  factory CreateTaskModel.fromJson(Map<String, dynamic> json) => CreateTaskModel(
-    taskId: json["docId"],
-    description: json["description"],
-    userName: json["userName"],
-    startDate: json["startDate"],
-    endDate: json["endDate"],
-    status: json["status"],
-  );
+  factory CreateTaskModel.fromJson(Map<String, dynamic> json) =>
+      CreateTaskModel(
+        taskId: json["docId"],
+        description: json["description"],
+        userName: json["userName"],
+        startDate: json["startDate"],
+        endDate: json["endDate"],
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson(String docId) => {
     "docId": docId,
@@ -37,6 +39,3 @@ class CreateTaskModel {
     "status": status,
   };
 }
-
-
-

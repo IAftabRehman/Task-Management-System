@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-applyLeaveUpdationModel applyLeaveUpdationModelFromJson(String str) => applyLeaveUpdationModel.fromJson(json.decode(str));
+applyLeaveUpdationModel applyLeaveUpdationModelFromJson(String str) =>
+    applyLeaveUpdationModel.fromJson(json.decode(str));
 
 class applyLeaveUpdationModel {
   final String? userName;
@@ -17,13 +18,14 @@ class applyLeaveUpdationModel {
     this.status,
   });
 
-  factory applyLeaveUpdationModel.fromJson(Map<String, dynamic> json) => applyLeaveUpdationModel(
-    userName: json["userName"],
-    message: json["description"],
-    subject: json["subject"],
-    docId: json["docId"],
-    status: json["status"],
-  );
+  factory applyLeaveUpdationModel.fromJson(Map<String, dynamic> json) =>
+      applyLeaveUpdationModel(
+        userName: json["userName"],
+        message: json["description"],
+        subject: json["subject"],
+        docId: json["docId"],
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson(String docId) => {
     "userName": userName,

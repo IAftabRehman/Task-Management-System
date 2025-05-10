@@ -1,5 +1,7 @@
 import 'dart:convert';
-RegistrationModel registrationModelFromJson(String str) => RegistrationModel.fromJson(json.decode(str));
+
+RegistrationModel registrationModelFromJson(String str) =>
+    RegistrationModel.fromJson(json.decode(str));
 
 class RegistrationModel {
   final String? name;
@@ -24,17 +26,18 @@ class RegistrationModel {
     this.createdAt,
   });
 
-  factory RegistrationModel.fromJson(Map<String, dynamic> json) => RegistrationModel(
-    name: json["name"],
-    misId: json["misId"],
-    userRole: json["userRole"],
-    gender: json["gender"],
-    email: json["email"],
-    password: json["password"],
-    phoneNumber: json["phoneNumber"],
-    docId: json["docId"],
-    createdAt: json["createdAt"],
-  );
+  factory RegistrationModel.fromJson(Map<String, dynamic> json) =>
+      RegistrationModel(
+        name: json["name"],
+        misId: json["misId"],
+        userRole: json["userRole"],
+        gender: json["gender"],
+        email: json["email"],
+        password: json["password"],
+        phoneNumber: json["phoneNumber"],
+        docId: json["docId"],
+        createdAt: json["createdAt"],
+      );
 
   Map<String, dynamic> toJson(String docId) => {
     "name": name,
